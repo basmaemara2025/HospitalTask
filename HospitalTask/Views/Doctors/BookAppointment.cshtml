@@ -1,0 +1,77 @@
+﻿@model List<HospitalTask.Models.Doctor>
+
+<h1>Book Appointment</h1>
+<form action="~/Doctors" method="POST">
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <label for="specialty" class="form-label">Select Doctor Specialty:</label>
+        <select class="form-select" id="specialty" name="specialty">
+            <option selected disabled>Choose a specialty</option>
+            @foreach (var item in ViewBag.Specialties)
+                {
+                    @if (@item.SpecialtyId == ViewBag.Dspecialty)
+                    { <option value="@item.SpecialtyId" selected>@item.Name</option>}
+                    else
+                    {
+                    <option value="@item.SpecialtyId">@item.Name</option>
+                    }
+           }
+            
+        </select>
+
+    </div>
+<div class="col-md-4 mb-4">
+            <div >
+                @if (string.IsNullOrEmpty(ViewBag.DoctorName))
+                {
+                    <label for="DoctorName" class="form-label">Doctor Name</label>
+                    <input type="text" class="form-control" id="DoctorName" name="DoctorName" placeholder="Enter Doctor name">
+                }
+                else
+                                {
+                    <label for="DoctorName" class="form-label">Doctor Name</label>
+                    <input type="text" class="form-control" id="DoctorName" name="DoctorName" placeholder="@ViewBag.DoctorName">
+                    
+                }
+            </div>
+                
+            </div>
+
+<div class="col-md-4 mb-4">   
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+</form>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            <img class="card-img" src="~/images/@item.MainImageName" style="width: 100%; height: auto;" alt="Doctor Image">
+            <div class="card-body">
+                <h5 class="card-title">@item.FullName</h5>
+                <p class="card-text">Specialization: @item.Specialty.Name</p>
+                    <a href="Doctors/CompleteAppointment?doctorId=@item.DoctorId" class="btn btn-primary">Book Appointment</a>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<div class="row">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=@(ViewBag.currentpage-1)" tabindex="-1">Previous</a>
+            </li>
+            @for (var i=1;i <=ViewBag.Totalpages;i++)
+            {
+                <li class="page-item"><a class="page-link" href="?page=@i">@i</a></li>
+            }
+            
+            <li class="page-item  @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@(ViewBag.currentpage +1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

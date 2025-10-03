@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Complete Appointment";
+}
+
+<h1>Complete Appointment with Doctor Name</h1>
+
+<form id="appointmentForm" method="get" action="#" >
+    <div class="form-group">
+        <label for="patientName">Patient Name:</label>
+        <input type="text" class="form-control" id="patientName" name="patientName">
+    </div>
+    <div class="form-group">
+        <label for="myDate">Appointment Date:</label>
+        <input type="date" class="form-control" id="myDate" name="myDate">
+    </div>
+    <div class="form-group">
+        <label for="myTime">Appointment Time:</label>
+        <input type="time" class="form-control" id="myTime" name="myTime">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" id="submitBtn">Complete Appointment</button>
+</form>
+
+<!-- Success Modal -->
+@*<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Appointment Completed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Your appointment has been successfully completed. Thank you!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var appointmentForm = document.getElementById('appointmentForm');
+        appointmentForm.addEventListener('submit', function (e) {
+            // Show the success modal after form submission
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            myModal.show();
+            // Prevent the default form submission
+            e.preventDefault();
+        });
+    });
+</script>
+*@
+
+
+@* 
+@section Scripts {
+    <script>
+        flatpickr("#myCalendar", {
+            dateFormat: "Y-m-d",
+            enable: [
+                function(date) {
+                    // Sunday = 0, Tuesday = 2
+                    return (date.getDay() === 0 || date.getDay() === 2);
+                }
+            ]
+        });
+    </script>
+}
+ *@ 
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // التاريخ: الأحد والثلاثاء فقط
+            flatpickr("#myDate", {
+                dateFormat: "Y-m-d",
+                enable: [
+                    function(date) {
+                        return (date.getDay() === 0 || date.getDay() === 2);
+                    }
+                ]
+            });
+
+            // الوقت: من 8 لـ 10 صباحًا
+            flatpickr("#myTime", {
+                enableTime: true,
+                noCalendar: true,       // يخليها اختيار وقت فقط
+                dateFormat: "H:i",
+                minTime: "08:00",
+                maxTime: "10:00",
+                minuteIncrement: 30     // نص ساعة نص ساعة
+            });
+        });
+    </script>
+}
+
+
+
