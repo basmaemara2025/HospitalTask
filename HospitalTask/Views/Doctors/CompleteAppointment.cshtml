@@ -1,10 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Complete Appointment";
 }
-
 <h1>Complete Appointment with Doctor Name</h1>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 
-<form id="appointmentForm" method="get" action="#" >
+<form id="appointmentForm" method="post" action="CompleteAppointment">
+    <input type="hidden" name="doctorId" value="@ViewBag.DoctorId" />
+
     <div class="form-group">
         <label for="patientName">Patient Name:</label>
         <input type="text" class="form-control" id="patientName" name="patientName">
@@ -54,8 +59,8 @@
 *@
 
 
-@* 
-@section Scripts {
+
+@* @section Scripts {
     <script>
         flatpickr("#myCalendar", {
             dateFormat: "Y-m-d",
@@ -66,9 +71,9 @@
                 }
             ]
         });
-    </script>
+    </script> *@
 }
- *@ 
+ 
 @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -82,18 +87,18 @@
                 ]
             });
 
-            // الوقت: من 8 لـ 10 صباحًا
-            flatpickr("#myTime", {
-                enableTime: true,
-                noCalendar: true,       // يخليها اختيار وقت فقط
-                dateFormat: "H:i",
-                minTime: "08:00",
-                maxTime: "10:00",
-                minuteIncrement: 30     // نص ساعة نص ساعة
-            });
+            // الوقت: من 8 صباحًا ل 5 مساءا
+                    flatpickr("#myTime", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            minTime: "08:00",
+            maxTime: "17:00",  // صححت الوقت ل 5 مساءً
+            minuteIncrement: 30
+        });
+
         });
     </script>
 }
-
 
 

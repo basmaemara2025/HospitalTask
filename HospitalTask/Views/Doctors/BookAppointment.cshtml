@@ -1,7 +1,7 @@
 ﻿@model List<HospitalTask.Models.Doctor>
 
 <h1>Book Appointment</h1>
-<form action="~/Doctors" method="POST">
+<form action="Doctors" method="POST">
 <div class="row">
     <div class="col-md-4 mb-4">
         <label for="specialty" class="form-label">Select Doctor Specialty:</label>
@@ -41,7 +41,9 @@
 
     <button type="submit" class="btn btn-primary">Filter</button>
         </div>
+        </div>
 </form>
+
 <div class="row">
     @foreach (var item in Model)
     {
@@ -51,8 +53,14 @@
             <div class="card-body">
                 <h5 class="card-title">@item.FullName</h5>
                 <p class="card-text">Specialization: @item.Specialty.Name</p>
-                    <a href="Doctors/CompleteAppointment?doctorId=@item.DoctorId" class="btn btn-primary">Book Appointment</a>
-            </div>
+                    <a asp-controller="Doctors"
+                       asp-action="CompleteAppointment"
+                       asp-route-doctorId="@item.DoctorId"
+                       class="btn btn-primary">
+                        Book Appointment
+                    </a>
+
+                </div>
         </div>
     </div>
     }

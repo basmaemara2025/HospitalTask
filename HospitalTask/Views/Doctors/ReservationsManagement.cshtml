@@ -1,22 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Reservations Management";
-}
+﻿@model List<HospitalTask.Models.Appointment>
 
-<h1>Reservations Management</h1>
+<h2>All Reservations</h2>
 
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Doctor Name</th>
-            <th>Appointment Date</th>
-            <th>Appointment Time</th>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>PatientName</td>
-            <td>AppointmentDate</td>
-            <td>AppointmentTime</td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Doctor.FullName</td>
+                <td>@item.Patient.FullName</td>
+                <td>@item.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.AppointmentDate.ToString("HH:mm")</td>
+                <td>@item.Status</td>
+            </tr>
+        }
     </tbody>
 </table>
